@@ -30,10 +30,10 @@ function notify(message, type, timeout) {
         $notification.css('top', '-50px');
     });
 
-    // for ie6, scroll to the top first
+    /*// for ie6, scroll to the top first
     if ($.browser.msie && $.browser.version < 7) {
         $('html').scrollTop(0);
-    }
+    }*/
 
     // hide old notification, then show the new notification
     $notification.css('top', '-50px').stop().removeClass().addClass(type).animate({

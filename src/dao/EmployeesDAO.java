@@ -49,7 +49,7 @@ public class EmployeesDAO extends DAO
 			ss.getTransaction().begin();
 
 			Query query = ss
-					.createQuery("from pojo.Employee e where e.userId=:userid");
+					.createQuery("from pojo.Employee e where e.user.userId=:userid");
 			query.setParameter("userid", user.getUserId());
 			List result = query.list();
 			if (!result.isEmpty())
@@ -71,8 +71,9 @@ public class EmployeesDAO extends DAO
 	}
 
 	// add employee
-	public void add(Employee emp)
+	public boolean add(Employee emp)
 	{
+		boolean result = true;
 		try
 		{
 			SessionFactory factory = SessionFactoryManager.getSessionFactory();
@@ -82,9 +83,11 @@ public class EmployeesDAO extends DAO
 			ss.getTransaction().commit();
 			ss.close();
 		} catch (Exception e)
-		{
-			this.log("Method: save(Employee)");
+		{			
+			this.log("Method: add(Employee)");
+			result =false;
 			e.printStackTrace();
 		}
+		return result;
 	}
 }

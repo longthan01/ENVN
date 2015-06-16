@@ -138,8 +138,9 @@ public class UsersDAO extends DAO
 	}
 	
 	// insert new user
-	public void add(User user)
+	public boolean add(User user)
 	{
+		boolean result = true;
 		try
 		{
 			SessionFactory factory = SessionFactoryManager.getSessionFactory();
@@ -152,7 +153,9 @@ public class UsersDAO extends DAO
 		{
 			this.log("Method: save(User)");
 			e.printStackTrace();
+			result = false;
 		}
+		return result;
 	}
 	
 }

@@ -21,7 +21,9 @@
 
 <script type="text/javascript"
 	src="/ENVN/AdminLTE-2.1.1/dist/js/app.min.js">
-	
+</script>
+<script>
+var context = "${pageContext.request.contextPath}";
 </script>
 
 

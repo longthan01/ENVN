@@ -21,7 +21,7 @@ $.ajax({
 	}
 	},
 	error : function(req, status, err) {
-		console.log('Something went wrong', status, err);
+	console.log('Something went wrong', status, err);
 	}
 });
 }

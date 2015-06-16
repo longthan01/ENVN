@@ -11,7 +11,7 @@ public class AjaxResult
 	
 	public AjaxResult()
 	{
-		this.code = -1; 
+		this.code = AjaxResult.SUCCESS; 
 	}
 	
 	public AjaxResult(int code, String details)

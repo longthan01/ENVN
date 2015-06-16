@@ -34,6 +34,9 @@ public class Classe implements java.io.Serializable {
 	private Date endDate;
 	private Serializable notes;
 	private Integer status;
+	private Integer durationOfStudiesHour;
+	private Integer fees;
+	
 	private Set<RegistrationInfomation> registrationInfomations = new HashSet<RegistrationInfomation>(
 			0);
 
@@ -176,4 +179,21 @@ public class Classe implements java.io.Serializable {
 		this.registrationInfomations = registrationInfomations;
 	}
 
+	@Column(name = "DurationOfStudies_Hour")
+	public Integer getDurationOfStudiesHour() {
+	return this.durationOfStudiesHour;
+	}
+
+	public void setDurationOfStudiesHour(Integer durationOfStudiesHour) {
+	this.durationOfStudiesHour = durationOfStudiesHour;
+	}
+
+	@Column(name = "Fees")
+	public Integer getFees() {
+	return this.fees;
+	}
+
+	public void setFees(Integer fees) {
+	this.fees = fees;
+	}
 }

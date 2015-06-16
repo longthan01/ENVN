@@ -58,7 +58,7 @@ public class AccountController extends controllers.Controller
 		try
 		{
 			Entities context = new Entities();
-			User user = context.getUsers().getUser(email, pwd);
+			User user = context.getUsers().getUser(email, utils.StringUtils.md5(pwd));
 			if (user != null)
 			{
 				loginResult.code = 1;
@@ -80,6 +80,7 @@ public class AccountController extends controllers.Controller
 		{
 			this.log("Controller : Account. Method: login(String, String, boolean)");
 			e.printStackTrace();
+			loginResult.code = AjaxResult.EXCEPTION;
 		}
 
 		return loginResult;
@@ -160,6 +161,7 @@ public class AccountController extends controllers.Controller
 		{
 			result.details = e.toString();
 			e.printStackTrace();
+			result.code=AjaxResult.EXCEPTION;
 		}
 		return result;
 	}

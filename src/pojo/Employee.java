@@ -1,6 +1,6 @@
 package pojo;
 
-// Generated Jun 14, 2015 12:46:58 AM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 15, 2015 9:10:58 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -24,7 +26,7 @@ public class Employee implements java.io.Serializable
 {
 
 	private int employeeId;
-	private Integer userId;
+	private User user;
 	private Integer coefficient;
 	private Set<Thematic> thematics = new HashSet<Thematic>(0);
 
@@ -34,10 +36,10 @@ public class Employee implements java.io.Serializable
 	public Employee(int employeeId) {
 		this.employeeId = employeeId;
 	}
-	public Employee(int employeeId, Integer userId, Integer coefficient,
+	public Employee(int employeeId, User user, Integer coefficient,
 			Set<Thematic> thematics) {
 		this.employeeId = employeeId;
-		this.userId = userId;
+		this.user = user;
 		this.coefficient = coefficient;
 		this.thematics = thematics;
 	}
@@ -55,15 +57,16 @@ public class Employee implements java.io.Serializable
 		this.employeeId = employeeId;
 	}
 
-	@Column(name = "UserID", unique = true)
-	public Integer getUserId()
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "UserID", unique = true)
+	public User getUser()
 	{
-		return this.userId;
+		return this.user;
 	}
 
-	public void setUserId(Integer userId)
+	public void setUser(User user)
 	{
-		this.userId = userId;
+		this.user = user;
 	}
 
 	@Column(name = "Coefficient")
@@ -77,7 +80,7 @@ public class Employee implements java.io.Serializable
 		this.coefficient = coefficient;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
 	public Set<Thematic> getThematics()
 	{
 		return this.thematics;

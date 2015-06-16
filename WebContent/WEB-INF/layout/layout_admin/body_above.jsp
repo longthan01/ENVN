@@ -96,7 +96,10 @@
 				<p>
 					<%
 						User u = CurrentContext.getCurrentUser(request);
-						out.print(StringUtils.upperFirstCase(u.getFullName()));
+						if (u!=null)
+						{
+							out.print(StringUtils.upperFirstCase(u.getFullName()));
+						}
 					%>					
 				</p>
 				<a href="#"><i class="fa fa-circle text-success"></i>Online</a>

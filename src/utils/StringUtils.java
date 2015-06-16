@@ -26,7 +26,7 @@ public class StringUtils
 	// upper first character of user fullname
 	public static String upperFirstCase (String text)
 	{
-		String result = null;
+		String result = "";
 		
 		try
 		{

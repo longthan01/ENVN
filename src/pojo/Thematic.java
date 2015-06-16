@@ -69,17 +69,26 @@ public class Thematic implements java.io.Serializable
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ManagerID", nullable = false)
+	@JoinColumn(name = "ManagerID")
 	public Employee getEmployee()
 	{
 		return this.employee;
 	}
-
+	/*
+	public Employee getManager()
+	{
+		return this.getEmployee();
+	}
+	*/
 	public void setEmployee(Employee employee)
 	{
 		this.employee = employee;
 	}
-
+/*	public void setManager(Employee emp)
+	{
+		this.setEmployee(emp);
+	}
+	*/
 	@Column(name = "ThematicName")
 	public String getThematicName()
 	{
