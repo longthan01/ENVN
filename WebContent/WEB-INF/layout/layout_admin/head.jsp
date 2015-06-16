@@ -13,9 +13,18 @@
 	rel="stylesheet" type="text/css" />
 <link href="/ENVN/AdminLTE-2.1.1/dist/css/AdminLTE.min.css"
 	rel="stylesheet" type="text/css" />
+	<link href="/ENVN/sweet_alert/sweet-alert.css" rel="stylesheet" type="text/css"/>
 
-
-
+<link
+	href="/ENVN/AdminLTE-2.1.1/plugins/datatables/dataTables.bootstrap.css"
+	rel="stylesheet" type="text/css" />
+<link href="/ENVN/ENVN_Utils/Notify.css" rel="stylesheet"
+	type="text/css" />
+<style type="text/css">
+.validate-error {
+	color: red;
+}
+</style>
 
 
 

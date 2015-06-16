@@ -3,29 +3,17 @@
 <%@	page import="pojo.Thematic"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="dao.ThematicsDAO"%>
 <%@ page import="dao.Entities"%>
 <%@ page import="pojo.User"%>
+<%@ page import="pojo.Employee"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="envn" uri="/WEB-INF/tags/DropdownTag.tld"%>
-<%
-	List<Thematic> listThematic = (List<Thematic>) request
-	.getAttribute("listThematic");
-%>
-
 <html>
 <head>
 <title>Admin homepage</title>
 <%@ include file="../../../layout/layout_admin/head.jsp"%>
-<link
-	href="/ENVN/AdminLTE-2.1.1/plugins/datatables/dataTables.bootstrap.css"
-	rel="stylesheet" type="text/css" />
-<link href="/ENVN/ENVN_Utils/Notify.css" rel="stylesheet"
-	type="text/css" />
-<style type="text/css">
-.validate-error {
-	color: red;
-}
-</style>
 </head>
 <body class="skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -72,31 +60,68 @@
 												<th>Mã user</th>
 												<th>Email</th>
 												<th>Tên nhân viên</th>
+												<th>Chuyên đề phụ trách</th>
 												<th>Lương</th>
 												<th></th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:if test="${listEmp != null }">
-												<c:forEach var="emp" items="${listEmp}">
-													<tr>
-														<td>${emp.getEmployeeId()}</td>
-														<td>${emp.getUser().getUserId()}</td>
-														<td>${emp.getUser().getEmail()}</td>
-														<td>${emp.getUser().getFullName()}</td>
-														<td>${emp.getCoefficient()}</td>
+											<%																																																																																											
+												List<Employee> listEmployees = (List<Employee>)request.getAttribute("listEmp");
+												if (listEmployees != null)
+												{
+													for(Employee emp : listEmployees)
+													{
+														%>
+														<tr>
+														<td><% out.print(emp.getEmployeeId()); %></td>
+														<td><% out.print(emp.getUser().getUserId()); %></td>
+														<td><% out.print(emp.getUser().getEmail());%></td>
+														<td><% out.print(emp.getUser().getFullName()); %></td>
+														<% 
+															Iterator iter = emp.getThematics().iterator();
+															if (iter.hasNext())
+															{
+																%>
+																<td>
+																<select class="form-control">
+																<%
+																while (iter.hasNext())
+																{
+																	Thematic tm = (Thematic)iter.next(); 
+																	%>
+																		<option><% out.print(tm.getThematicName());%></option>
+																	<%
+																}
+																%>
+																</select>
+																</td>
+																<%
+																
+															}
+															else
+															{
+																%>
+																<td></td>
+																<%
+															}
+														%>
+														<td><%out.print(emp.getCoefficient()); %></td>																							
 														<td><button 
 																class="btn btn-primary" type="button" id="btnEdit${emp.getEmployeeId() }">
 																<i class="fa fa-edit"></i>
 															</button></td>
-															<td><button
+														<td><button
 																class="btn btn-danger" type="button" id="btnRemove${emp.getEmployeeId() }">
 																<i class="fa fa-remove"></i>
-															</button></td>
+														</button></td>
 													</tr>
-												</c:forEach>																							
-											</c:if>
+														<%
+														
+													}
+												}
+											 %>
 										</tbody>
 									</table>
 								</div>
@@ -213,29 +238,60 @@
 	<!--  footer -->
 	<%@ include file="../../../layout/layout_admin/footer.jsp"%>
 	<!--  / -->
-	<script type="text/javascript" src="/ENVN/AdminLTE-2.1.1/plugins/datatables/jquery.dataTables.min.js">
-	</script>
-	<script type="text/javascript" src="/ENVN/AdminLTE-2.1.1/plugins/datatables/dataTables.bootstrap.min.js">
-	</script>
-	<script type="text/javascript" src="/ENVN/ENVN_Utils/Notify.js">
-    
-  </script>
-	<script type="text/javascript"
-		src="/ENVN/login_form/assets/plugins/jquery-validation/dist/jquery.validate.min.js">
-    
-  </script>
+	
 	<script>
     jQuery(document).ready(function() {
       var tbl =  $("#dataTables").dataTable();
+      
       $('#dataTables tbody').on('click', 'button[id*="btnEdit"]', function (e) {
     	var row = $(this).parents("tr").index();
     	var data = tbl.fnGetData(row, 0);
-    	var salary = tbl.fnGetData(row,4);
+    	var salary = tbl.fnGetData(row,5);
     	document.getElementById("hden1").value = data;
 
     	document.getElementById("txtsalaryedit").value = salary;
     	$('#editEmployeeModal').modal('show');
       });
+      
+      $('#dataTables tbody').on('click', 'button[id*="btnRemove"]', function (e) {
+	      	var row = $(this).parents("tr").index();
+	      	var data = tbl.fnGetData(row, 0);
+	      	document.getElementById("hden1").value = data;
+			var email = tbl.fnGetData(row,2);
+	      	 swal({
+	           title: "Are you sure?",
+	           text: "You will not be able to recover this user on database!",
+	           type: "warning",
+	           showCancelButton: true,
+	           confirmButtonColor: "#DD6B55",
+	           confirmButtonText: "Yes, delete it!",
+	           cancelButtonText: "No, cancel!",
+	           closeOnConfirm: true,
+	           closeOnCancel: true
+	       },
+	       function () {
+	           $.ajax(
+	           {
+	               url: context + '/admin/employee/removeEmp',
+	               type: "GET",
+	               data: {empId: document.getElementById("hden1").value},
+	               contentType: "application/json; charset=utf-8",
+	               dataType: "json",
+	               success: function (result) {
+	                 if (result.code > 0) {
+	                   notify("Xóa thành nhân viên " + email + " thành công", "success");
+	                   setTimeout(function() {
+	                     location.href = context + "/admin/employee/index";
+	                   }, 1100);
+	                 } else {
+	                   	notify(result.details, "error");
+	                   }
+	               },
+	               error: function (data) { alert(data.error); }
+	           });
+	       });
+        });
+      //*****************//
 
       $("#frmEditEmp").validate({
         errorElement: 'span',    

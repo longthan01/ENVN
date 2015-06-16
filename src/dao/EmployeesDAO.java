@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -26,8 +27,8 @@ public class EmployeesDAO extends DAO
 			Session session = factory.openSession();
 			session.getTransaction().begin();
 			// get list
-			list = session.createCriteria(Employee.class) // create entities for employee class									
-					.list(); // get list employee by entities
+			session.flush();
+			list = session.createQuery("from pojo.Employee").list();
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e)
@@ -101,6 +102,7 @@ public class EmployeesDAO extends DAO
 		}
 		return emp;
 	}
+	
 	// add employee
 	public boolean add(Employee emp)
 	{
@@ -117,6 +119,54 @@ public class EmployeesDAO extends DAO
 		{			
 			this.log("Method: add(Employee)");
 			result =false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// remove employee
+	public boolean remove(Employee emp)
+	{
+		boolean result = true;
+		try
+		{
+			SessionFactory factory = SessionFactoryManager.getSessionFactory();
+			Session ss = factory.openSession();
+			ss.getTransaction().begin();
+			ss.delete(emp); // save user to db
+			ss.getTransaction().commit();
+			ss.close();
+		} catch (Exception e)
+		{			
+			this.log("Method: remove(Employee)");
+			result =false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// update employee
+	public boolean update(Employee emp)
+	{
+		boolean result = true;
+		SessionFactory factory = SessionFactoryManager.getSessionFactory();
+		Session ss = factory.openSession();
+		try
+		{
+			ss.getTransaction().begin();
+			ss.saveOrUpdate(emp);
+			Iterator iter = emp.getThematics().iterator();
+			Thematic thm = (Thematic)iter.next();
+			thm.setEmployee(emp);
+			thm = (Thematic)ss.merge(thm);
+			
+			ss.getTransaction().commit();
+			ss.close();
+		} catch (Exception e)
+		{			
+			this.log("Method: remove(Employee)");
+			result =false;
+			ss.getTransaction().rollback();
 			e.printStackTrace();
 		}
 		return result;

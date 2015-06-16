@@ -3,10 +3,13 @@ package controllers.admin;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sun.net.httpserver.HttpContext;
 
 import pojo.Thematic;
 import pojo.User;
@@ -34,10 +37,11 @@ public class HomeController extends controllers.Controller
 			if (user.getPermission().getPermissionId() == PermissionsDAO.PERMISSION_WEB_ADMIN)
 			{
 				thematics = context.getThematics().toList();
-			}
-			
+			}			
 		}
-		model.addAttribute("listThematic", thematics);
+		HttpSession session = request.getSession(true);
+		session.setAttribute("list", thematics);
+		model.addAttribute("listThematics", thematics);
 		return "admin/home/index";
 	}
 }

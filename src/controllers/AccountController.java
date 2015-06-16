@@ -127,7 +127,7 @@ public class AccountController extends controllers.Controller
 					user.setFullName(fullName);
 					user.setAddr(addr);
 					user.setEmail(email);
-					user.setPwd(pwd);
+					user.setPwd(utils.StringUtils.md5(pwd));
 					user.setDob(new java.util.Date(dob));
 					user.setPhoneNumber(phoneNumber);
 					Permission p = context.getPermissions().getPermission(

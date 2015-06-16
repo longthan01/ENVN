@@ -27,6 +27,7 @@ public class ThematicsDAO extends DAO
 			Session session = factory.openSession();
 			session.getTransaction().begin();
 			// get list
+			session.flush();
 			list = session.createCriteria(Thematic.class) // create entities for
 															// user // class
 					.list(); // get list user by entities

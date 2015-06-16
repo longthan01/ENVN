@@ -4,10 +4,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="dao.ThematicsDAO"%>
-<%
-	List<Thematic> listThematic = (List<Thematic>) request
-			.getAttribute("listThematic");
-%>
+
 <html>
 <head>
 <title>Admin homepage</title>

@@ -82,28 +82,31 @@ public class EmployeeController
 
 	@RequestMapping(value = "/updateEmp")
 	public @ResponseBody AjaxResult updateEmployee(@RequestParam int empId,
-			@RequestParam int salary, @RequestParam int thematicId)
+			@RequestParam int salary,
+			@RequestParam(required = false, defaultValue = "0") int thematicId)
 	{
 		AjaxResult result = new AjaxResult();
 		Entities context = new Entities();
 		try
 		{
 			Employee emp = context.getEmployees().getEmployee(empId);
-			if (emp!=null)
+			if (emp != null)
 			{
-				Thematic thematic = context.getThematics().getThematic(thematicId);
-				if (thematic == null)
-				{
-					result.code = AjaxResult.FAIL;
-					result.details = "Chuyên đề không tồn tại";
-				}
-				else
+				Thematic thematic = context.getThematics().getThematic(
+						thematicId);
+
+				if (thematic != null)
 				{
 					emp.getThematics().add(thematic);
-					emp.setCoefficient(salary);
 				}
-			}
-			else
+				emp.setCoefficient(salary);
+				boolean isUpdated = context.getEmployees().update(emp);
+				if (isUpdated == false)
+				{
+					result.code = AjaxResult.EXCEPTION;
+					result.details = "Có lỗi trong quá trình lưu nhân viên xuống db.";
+				}
+			} else
 			{
 				result.code = AjaxResult.FAIL;
 				result.details = "Nhân viên không tồn tại";
@@ -116,28 +119,26 @@ public class EmployeeController
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/removeEmp", method = RequestMethod.GET)
+	public @ResponseBody AjaxResult removeEmployee(@RequestParam int empId)
+	{
+		AjaxResult result = new AjaxResult();
+		Entities context = new Entities();
+		try
+		{
+			Employee emp = context.getEmployees().getEmployee(empId);
+			if (emp != null)
+			{
+				context.getEmployees().remove(emp);
+			}
+		} catch (Exception e)
+		{
+			result.code = AjaxResult.EXCEPTION;
+			result.details = "Có lỗi xảy ra trong quá trình xóa nhân viên, xin thử lại sau.";
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

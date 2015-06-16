@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="pojo.Thematic" %>
+<%@ page import="java.util.List" %>
 <!-- thematic info -->
 <li class="treeview"><a href="#"> <i class="fa fa-dashboard"></i>
 		<span>Chuyên đề</span> <i class="fa fa-angle-left pull-right"></i>
 </a>
+<% 
+	List<Thematic> list = (List<Thematic>)session.getAttribute("list");
+%>
 	<ul class="treeview-menu">
-		<c:if test="${listThematic != null}">
-			<c:forEach var="thm" items="${listThematic}">
+		<c:if test="${list != null}">
+			<c:forEach var="thm" items="${list}">
 				<li><a href="/admin/thematic/view"><i class="fa fa-edit"></i>
 						${thm.getThematicName()} </a></li>
 			</c:forEach>
