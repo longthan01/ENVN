@@ -17,7 +17,7 @@ import utils.CurrentContext;
 import dao.Entities;
 import dao.PermissionsDAO;
 
-@Controller("AdminController")
+@Controller("AdminHomeController")
 @RequestMapping(value = "/admin/home")
 public class HomeController extends controllers.Controller
 {

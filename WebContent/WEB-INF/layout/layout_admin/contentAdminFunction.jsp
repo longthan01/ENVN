@@ -13,7 +13,7 @@
 	<ul class="treeview-menu">
 		<c:if test="${list != null}">
 			<c:forEach var="thm" items="${list}">
-				<li><a href="/admin/thematic/index">
+				<li><a href="/ENVN/admin/thematic/index">
 				<i class="fa fa-edit"></i>
 				${thm.getThematicName()}
 				</a></li>

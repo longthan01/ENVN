@@ -13,7 +13,7 @@
 	<ul class="treeview-menu">
 		<c:if test="${list != null}">
 			<c:forEach var="thm" items="${list}">
-				<li><a href="/admin/thematic/view"><i class="fa fa-edit"></i>
+				<li><a href="/ENVN/admin/thematic/view"><i class="fa fa-edit"></i>
 						${thm.getThematicName()} </a></li>
 			</c:forEach>
 		</c:if>
@@ -21,7 +21,7 @@
 <!-- / -->
 <!-- employee management -->
 <li><a href="../../admin/employee/index"> <i
-		class="fa fa-dashboard"></i> <span>Quản lý nhân viên</span>
+		class="fa fa-dashboard"></i><span>Quản lý nhân viên</span>
 </a></li>
 <!-- / -->
 
@@ -30,6 +30,6 @@
 		<span>Thông tin phản hồi</span> <i class="fa fa-angle-left pull-right"></i>
 </a>
 	<ul class="treeview-menu">
-		<li><a href="index.html"><i class="fa fa-edit"></i>Xem</a></li>
+		<li><a href="/ENVN/admin/user/feedback"><i class="fa fa-edit"></i>Xem</a></li>
 	</ul></li>
 <!-- / -->

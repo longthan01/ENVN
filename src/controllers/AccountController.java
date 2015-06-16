@@ -149,7 +149,7 @@ public class AccountController extends controllers.Controller
 	}
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public AjaxResult logout(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody AjaxResult logout(HttpServletRequest request, HttpServletResponse response)
 	{
 		AjaxResult result = new AjaxResult();
 		try

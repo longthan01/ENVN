@@ -34,7 +34,53 @@
 			<!--  / -->
 			<!-- main content - bootstrap -->
 			<section class="content">
-				<div class="row"></div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3>Danh sách chuyên đề</h3>
+							</div>
+							<!-- /.panel-heading -->
+							
+							<div class="panel-body">
+								<div class="dataTable_wrapper">
+									<table class="table table-striped table-bordered table-hover"
+										id="dataTables">
+										<thead>
+											<tr>
+												<th>Mã chuyên đề</th>
+												<th>Tên chuyên đề</th>
+												<th>Nhân viên quản lý</th>
+												<th>Nội dung</th>
+												<th>Giáo viên</th>
+												<th>Tài liệu</th>
+												<th>Mô tả</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<c:if test="${listThms != null}">
+												<c:forEach var="t" items="${listThms}">
+													<tr>
+														<td>${t.getThematicId() }</td>
+														<td>${t.getThematicName() }</td>
+														<td>${t.getEmployee().getUser().getFullName() }</td>
+														<td>${t.getContentDescription() }</td>
+														<td>${t.getTrainers() }</td>
+														<td>${t.getDocuments() }</td>
+														<td>${t.getTinyDes() }
+													</tr>
+												</c:forEach>
+
+											</c:if>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
 		</div>
 	</div>

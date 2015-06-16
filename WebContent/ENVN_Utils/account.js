@@ -15,7 +15,9 @@ $.ajax({
 	},
 	success : function(result) {
 	if (result.code == 1) {
-		location.reload();
+	  setTimeout(function(){
+	      location.reload();
+	    },1200);
 	} else {
 		console.log(result);
 	}

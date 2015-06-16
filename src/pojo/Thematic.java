@@ -33,6 +33,8 @@ public class Thematic implements java.io.Serializable
 	private String contentDescription;
 	private String trainers;
 	private String documents;
+	private String tinyDes;
+	
 	private Set<RegistrationInfomation> registrationInfomations = new HashSet<RegistrationInfomation>(
 			0);
 	private Set<Classe> classes = new HashSet<Classe>(0);
@@ -71,7 +73,7 @@ public class Thematic implements java.io.Serializable
 		this.thematicId = thematicId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ManagerID")
 	public Employee getEmployee()
 	{
@@ -87,11 +89,15 @@ public class Thematic implements java.io.Serializable
 	{
 		this.employee = employee;
 	}
-/*	public void setManager(Employee emp)
-	{
-		this.setEmployee(emp);
+
+	@Column(name = "TinyDes")
+	public String getTinyDes() {
+	return this.tinyDes;
 	}
-	*/
+
+	public void setTinyDes(String tinyDes) {
+	this.tinyDes = tinyDes;
+	}
 	@Column(name = "ThematicName")
 	public String getThematicName()
 	{
