@@ -251,11 +251,12 @@
         },
         submitHandler: function() {
           $.ajax({
-            url: context + "/admin/employee/update",
+            url: context + "/admin/employee/updateEmp",
             type: "GET",
             data: {
-              salary: document.getElementById("txtsalary").value,
-              thematicid: document.getElementById("cbxthematic").value
+              empId: document.getElementById("hden1").value,
+              salary: document.getElementById("txtsalaryedit").value,
+              thematicId: document.getElementById("cbxthematic").value
             },
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
@@ -269,7 +270,7 @@
                   location.href = context + "/admin/employee/index";
                 }, 1100);
               } else {
-                  console.log(result);
+                	notify(result.details, "error");
                 }
             },
             error: function(req, status, err) {

@@ -79,4 +79,65 @@ public class EmployeeController
 
 		return result;
 	}
+
+	@RequestMapping(value = "/updateEmp")
+	public @ResponseBody AjaxResult updateEmployee(@RequestParam int empId,
+			@RequestParam int salary, @RequestParam int thematicId)
+	{
+		AjaxResult result = new AjaxResult();
+		Entities context = new Entities();
+		try
+		{
+			Employee emp = context.getEmployees().getEmployee(empId);
+			if (emp!=null)
+			{
+				Thematic thematic = context.getThematics().getThematic(thematicId);
+				if (thematic == null)
+				{
+					result.code = AjaxResult.FAIL;
+					result.details = "Chuyên đề không tồn tại";
+				}
+				else
+				{
+					emp.getThematics().add(thematic);
+					emp.setCoefficient(salary);
+				}
+			}
+			else
+			{
+				result.code = AjaxResult.FAIL;
+				result.details = "Nhân viên không tồn tại";
+			}
+		} catch (Exception e)
+		{
+			result.code = AjaxResult.EXCEPTION;
+			result.details = "Có lỗi xảy ra trong quá trình update nhân viên.";
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

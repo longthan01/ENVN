@@ -70,6 +70,37 @@ public class EmployeesDAO extends DAO
 		return emp;
 	}
 
+	// get employee by id
+	public Employee getEmployee(int empId)
+	{
+		Employee emp = null;
+		try
+		{
+			SessionFactory factory = SessionFactoryManager.getSessionFactory();
+			Session ss = factory.openSession();
+			ss.getTransaction().begin();
+
+			Query query = ss
+					.createQuery("from pojo.Employee e where e.employeeId=:empId");
+			query.setParameter("empId", empId);
+			List result = query.list();
+			if (!result.isEmpty())
+			{
+				emp = (Employee) result.get(0);
+				Set<Thematic> thematics = emp.getThematics();
+				Hibernate.initialize(thematics);
+			}
+
+			ss.getTransaction().commit();
+			ss.close();
+
+		} catch (Exception e)
+		{
+			this.log("Method: getEmployee(int)");
+			e.printStackTrace();
+		}
+		return emp;
+	}
 	// add employee
 	public boolean add(Employee emp)
 	{
