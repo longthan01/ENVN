@@ -41,6 +41,30 @@ public class ThematicsDAO extends DAO
 		return list;
 	}
 
+	// get list thematic by it's manager
+	public List<Thematic> getList(Employee emp)
+	{
+		List<Thematic> result = null;
+		try
+		{
+			SessionFactory factory = SessionFactoryManager.getSessionFactory();
+			Session ss = factory.openSession();
+			ss.getTransaction().begin();
+			result = ss.createQuery("from pojo.Thematic t where t.employee.employeeId=:empid")
+					.setParameter("empid", emp.getEmployeeId())
+					.list();
+			ss.getTransaction().commit();
+			ss.close();
+
+		} catch (Exception e)
+		{
+			this.log("Method: getList(Employee)");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	// get thematic by id
 	public Thematic getThematic(int id)
 	{

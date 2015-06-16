@@ -29,6 +29,7 @@
 	rel="stylesheet" type="text/css" />
 <!--  google recaptcha -->
 <!--  /google recaptcha -->
+<link href="/ENVN/ENVN_Utils/Notify.css" rel="stylesheet" type="text/css"/>
 </head>
 <body class="login">
 	<c:choose>
@@ -299,6 +300,8 @@
 	<script type="text/javascript"
 		src="<c:url value="/ENVN_Utils/Login_regis.js"/>">
 		
+	</script> 
+	<script type="text/javascript" src="/ENVN/ENVN_Utils/Notify.js">
 	</script>
 	<script>
 		var context = "${pageContext.request.contextPath}";

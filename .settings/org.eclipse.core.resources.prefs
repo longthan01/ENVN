@@ -3,4 +3,5 @@ encoding//WebContent/WEB-INF/jsp/account/login.jsp=UTF-8
 encoding//WebContent/WEB-INF/layout/body_above.jsp=UTF-8
 encoding//WebContent/WEB-INF/layout/layout_admin/contentAdminFunction.jsp=UTF-8
 encoding//WebContent/WEB-INF/layout/layout_admin/webAdminFunction.jsp=UTF-8
+encoding//src/controllers/AccountController.java=UTF-8
 encoding//src/controllers/admin/EmployeeController.java=UTF-8

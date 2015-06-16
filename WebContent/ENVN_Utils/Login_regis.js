@@ -15,7 +15,7 @@ $('.login-form').validate(
 				},
 				upassword : {
 					required : true,
-					minlength : 8
+					minlength : 6
 				},
 				remember : {
 					required : false
@@ -29,7 +29,7 @@ $('.login-form').validate(
 				},
 				upassword : {
 					required : "Password is required.",
-					minlength : "Password must be over than 8 characters."
+					minlength : "Password must be over than 6 characters."
 				}
 			},
 
@@ -77,10 +77,13 @@ $('.login-form').validate(
 				success : function(loginSuccess) {
 				$("#loading1").hide();
 				if (loginSuccess.code == 1) {
-					location.href = context + "/home/index";
+				  notify("Đăng nhập thành công!", "success");
+				  setTimeout(function(){
+            location.href = "/ENVN/home/index";
+          }, 1500);
 				} else {
-					alert("login fail");
-				}
+				    notify(loginSuccess.details, "error");
+				  }
 				},
 				error : function(req, status, err) {
 				console.log('Something went wrong', status, err);
@@ -204,7 +207,7 @@ $('.register-form')
 						},
 						userpassword : {
 							required : true,
-							minlength : 8
+							minlength : 6
 						},
 						rpassword : {
 							equalTo : "#register_password"

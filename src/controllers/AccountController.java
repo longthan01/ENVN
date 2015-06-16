@@ -76,6 +76,11 @@ public class AccountController extends controllers.Controller
 					
 				}
 			}
+			else
+			{
+				loginResult.code = AjaxResult.FAIL;
+				loginResult.details = "Email hoặc mật khẩu không đúng!";
+			}
 		} catch (Exception e)
 		{
 			this.log("Controller : Account. Method: login(String, String, boolean)");
